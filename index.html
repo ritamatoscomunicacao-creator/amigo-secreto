@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amigo Secreto da Equipa</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;600&display=swap">
+<style>
+:root {
+  /* Layout: one narrow, left-aligned column on wrapping-paper green.
+     The only loud object is the gift tag that carries the result. */
+  --pine: #12402f;
+  --pine-deep: #0a2a1f;
+  --pine-line: #2a6a52;
+  --paper: #f3ead8;
+  --ink: #16241d;
+  --berry: #b3232f;
+  --gold: #e8ba4c;
+  --mist: #b9d1c4;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  min-height: 100vh;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 26px, rgba(255, 255, 255, 0.035) 26px 28px),
+    var(--pine);
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 56px 20px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+header { display: flex; flex-direction: column; gap: 14px; }
+
+h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(3rem, 13vw, 5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+h1 span { display: block; color: var(--gold); }
+
+.lead { margin: 0; max-width: 34em; color: var(--mist); }
+
+h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+h2:focus { outline: none; }
+
+section { display: flex; flex-direction: column; gap: 18px; }
+section p { margin: 0; max-width: 34em; }
+.quiet { color: var(--mist); font-size: 0.95rem; }
+
+/* Name labels */
+.names {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 12px;
+}
+.name {
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 1.0625rem/1.2 var(--body);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--pine-deep);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.name:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--pine-deep); }
+.name:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--pine-deep); }
+
+/* Actions */
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.go {
+  padding: 14px 22px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--gold);
+  color: var(--ink);
+  font: 600 1.0625rem/1.2 var(--body);
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--pine-deep);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.go:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--pine-deep); }
+.go:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--pine-deep); }
+.back {
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--mist);
+  font: 400 1rem/1.2 var(--body);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.back:hover { color: var(--paper); }
+
+button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.go:focus-visible { outline-color: var(--paper); }
+
+/* Gift tag */
+.tag-wrap {
+  position: relative;
+  align-self: flex-start;
+  width: min(100%, 380px);
+  margin-top: 48px;
+  transform: rotate(-2.5deg);
+  transform-origin: 50% -50px;
+  animation: hang 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+.tag-wrap::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -50px;
+  width: 2px;
+  height: 78px;
+  margin-left: -1px;
+  background: var(--berry);
+  z-index: 1;
+}
+.tag {
+  padding: 62px 28px 30px;
+  background: var(--paper);
+  color: var(--ink);
+  clip-path: polygon(38px 0, calc(100% - 38px) 0, 100% 38px, 100% 100%, 0 100%, 0 38px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+.tag::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  border-radius: 50%;
+  background: var(--pine);
+  box-shadow: 0 0 0 3px var(--gold);
+}
+.tag dl { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.tag dt {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5d6a62;
+}
+.tag dd { margin: 2px 0 0; }
+.tag .from { font-weight: 600; padding-bottom: 16px; border-bottom: 2px dashed #cdbf9f; }
+.tag .to {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2rem, 9vw, 2.9rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--berry);
+  overflow-wrap: anywhere;
+}
+
+@keyframes hang {
+  0% { transform: rotate(-16deg); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: rotate(-2.5deg); }
+}
+
+footer { color: var(--mist); font-size: 0.9rem; border-top: 1px solid var(--pine-line); padding-top: 18px; }
+footer p { margin: 0; max-width: 38em; }
+
+@media (max-width: 420px) {
+  main { padding-top: 40px; gap: 32px; }
+  .names { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag-wrap { animation: none; }
+  .name, .go { transition: none; }
+}
+</style>
+</head>
+<body>
+<main id="root"></main>
+<script type="application/json" id="state">{"v":1,"salt":"e60d70a5aadc6380","people":[{"n":"Bruno Gonçalves","e":"0hvSyyWuyvSm4X7l4wNYqTZaZb3UJanwF/cATFbHZls7k/NbPI5Mw7gC9Qu9a7YG3Jzw+QCokTdHureuTmYA+fhP98FYJoznv7VSs9Ra0VYJ2XofoKxUPLlSPl5zYdL+9phQ3hpGtbT/vM9uQS5BCmm0cFR1adP7gDgf4nzD4KQ="},{"n":"Rita Matos","e":"vxBEBoobGVD1dn8sR8gM9y47CDQequsbkDLn8OlY/LNQIoC/6u6d2cebcxj4s0bOoYLlymiYW6+xeY+y9NRGC4Njsg6hoQEJk/UP6sF79ogRlwANQKIuGjbzSl+BCFd/cT2WTYtLYL6pmihUGnTNX8KydmN/qeEdCtLtZbb/Nj4="},{"n":"Mariana Santos","e":"iWTjGYxOGyJSgT7PW8FboHQ22JAlHp0xJc3DOgatOhXYKyKFYcioamDz7Y4VDqU5Lq/aWXVGvcF9LQTHnNwRYQC2WyRr5+W+uD49TVAs+W2LHSVq6D+EubPkA3p+Jwzays+4K2C4mPKlUH4ax629PLlkcJB445siRGLmqetl9ZI="},{"n":"Joana Gomes","e":"lJTXACVskXuogWSu6I8z0zf8hcQ6IA1C6dVnX+yBdKwT8PFtYj+uH6Pt5h2jSZCBBglRs4AdulcgtbE7jrOPhDdLgytKSFlm1XLLkaEBKh7jryCo+pspnlPRD/RmqdkMbtv18qabYCkCbOxuKIc/si8GtEfnKbtmWRGxBKltkRA="},{"n":"Paula Silva","e":"luGvFJR8jXB2BaHTUH+UrLz3oxvby0ttD1ipKodoa6A07DlLNDnWM1QOMWqv28f19w79re57U3BMTqB8zAZElhV65ePUVrcl5mgNaU7NbD3GblFGBGVEJm91Y6Mv3bQ8g5uHlh4KWfrBy07s91SJSeHIpHYIHRF0KX3zIb1EQdk="},{"n":"David Gil","e":"iK2XnfXCHTSKwz5oZ5ZoNapyK/vo/F7ZHPj64hCZ8KrV0cnkAGg5KRMcyfZvVlOVwlJNYNHclZs39M3bjsbIuETT37yjfICvtv5LMMnOHSe8xHpQovzgH4HrcJ/aO7ZRsDjQFWVGqp51hVR79IRd/44G7uuuNQlT4YOMT83PT5g="},{"n":"José Araújo","e":"3p9zLCW6WBd/A44pPIKHU0N1lEa5eUb3EnvIjJ0OHQI1Sj74PttqMPzr4u/7zeGsCDQyly+BFpzPUYaCycsQv8YhogUh/5Ux9DDMSM/tr1i4u+cCWpvPdMyAHBMJz5xKC9dlEImr9HoSYjkueVWkfKExWIepSrPxUFitQ81scOQ="}]}</script>
+<script>
+/* Shared by the page and the build: hides each result so it is not readable in the page source. */
+var PAD = 128;
+function utf8(str) { return new TextEncoder().encode(str); }
+function seedFrom(str) {
+  var h = 2166136261 >>> 0, b = utf8(str);
+  for (var i = 0; i < b.length; i++) { h ^= b[i]; h = Math.imul(h, 16777619) >>> 0; }
+  return h || 1;
+}
+function stream(seed, n) {
+  var x = seed >>> 0, out = new Uint8Array(n);
+  for (var i = 0; i < n; i++) {
+    x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0;
+    out[i] = x & 255;
+  }
+  return out;
+}
+function seal(salt, giver, receiver) {
+  var src = utf8(receiver), buf = new Uint8Array(PAD), k = stream(seedFrom(salt + '|' + giver), PAD), s = '';
+  buf.set(src.slice(0, PAD));
+  for (var i = 0; i < PAD; i++) s += String.fromCharCode(buf[i] ^ k[i]);
+  return btoa(s);
+}
+function unseal(salt, giver, sealed) {
+  var bin = atob(sealed), k = stream(seedFrom(salt + '|' + giver), bin.length), bytes = [];
+  for (var i = 0; i < bin.length; i++) {
+    var c = bin.charCodeAt(i) ^ k[i];
+    if (c === 0) break;
+    bytes.push(c);
+  }
+  return new TextDecoder().decode(new Uint8Array(bytes));
+}
+
+(function () {
+  'use strict';
+
+  var root = document.getElementById('root');
+  var state = JSON.parse(document.getElementById('state').textContent);
+  var people = state.people.slice().sort(function (a, b) { return a.n.localeCompare(b.n, 'pt'); });
+  var lockKey = 'amigo-secreto-' + state.salt;
+  var memoryLock = null;
+
+  function readLock() {
+    try { return localStorage.getItem(lockKey) || memoryLock; } catch (e) { return memoryLock; }
+  }
+  function writeLock(name) {
+    memoryLock = name;
+    try { localStorage.setItem(lockKey, name); } catch (e) { /* stays in memory for this visit */ }
+  }
+  function find(name) {
+    for (var i = 0; i < people.length; i++) if (people[i].n === name) return people[i];
+    return null;
+  }
+  function firstName(name) { return name.split(' ')[0]; }
+
+  function el(tag, props) {
+    var node = document.createElement(tag);
+    if (props) for (var k in props) {
+      if (k === 'text') node.textContent = props[k];
+      else if (k === 'click') node.addEventListener('click', props[k]);
+      else node.setAttribute(k, props[k]);
+    }
+    for (var i = 2; i < arguments.length; i++) if (arguments[i]) node.appendChild(arguments[i]);
+    return node;
+  }
+
+  function header() {
+    var h1 = el('h1', null, document.createTextNode('Amigo'), el('span', { text: 'Secreto' }));
+    return el('header', null, h1,
+      el('p', { 'class': 'lead', text: 'Escolhe o teu nome e descobre a quem vais dar prenda. Sem espreitar o dos outros.' }));
+  }
+
+  function footer() {
+    return el('footer', null, el('p', {
+      text: people.length + ' participantes. O sorteio foi feito automaticamente e ninguém calhou a si próprio.'
+    }));
+  }
+
+  function show(section, focusHeading) {
+    root.textContent = '';
+    root.appendChild(header());
+    root.appendChild(section);
+    root.appendChild(footer());
+    if (focusHeading) {
+      var h = section.querySelector('h2');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus(); }
+    }
+  }
+
+  function pick(focus) {
+    var list = el('ul', { 'class': 'names' });
+    people.forEach(function (p) {
+      list.appendChild(el('li', null, el('button', {
+        type: 'button', 'class': 'name', text: p.n,
+        click: function () { confirmWho(p); }
+      })));
+    });
+    show(el('section', null, el('h2', { text: 'Quem és tu?' }), list), focus);
+  }
+
+  function confirmWho(p) {
+    show(el('section', null,
+      el('h2', { text: 'És mesmo ' + p.n + '?' }),
+      el('p', { text: 'Cada dispositivo só mostra um resultado, por isso confirma que o nome é o teu.' }),
+      el('div', { 'class': 'actions' },
+        el('button', { type: 'button', 'class': 'go', text: 'Sim, mostra o meu amigo secreto', click: function () { writeLock(p.n); reveal(p); } }),
+        el('button', { type: 'button', 'class': 'back', text: 'Não, voltar aos nomes', click: function () { pick(true); } }))
+    ), true);
+  }
+
+  function reveal(p) {
+    var receiver = unseal(state.salt, p.n, p.e);
+    var tag = el('div', { 'class': 'tag-wrap' }, el('div', { 'class': 'tag' },
+      el('dl', null,
+        el('div', { 'class': 'from' }, el('dt', { text: 'De' }), el('dd', { text: p.n })),
+        el('div', null, el('dt', { text: 'Para' }), el('dd', { 'class': 'to', text: receiver })))));
+    show(el('section', null,
+      el('h2', { text: firstName(p.n) + ', o teu amigo secreto é:' }),
+      tag,
+      el('p', { 'class': 'quiet', text: 'Isto fica entre ti e este ecrã. Esconde antes que alguém passe atrás de ti.' }),
+      el('div', { 'class': 'actions' },
+        el('button', { type: 'button', 'class': 'go', text: 'Esconder', click: function () { locked(p, true); } }))
+    ), true);
+  }
+
+  function locked(p, focus) {
+    show(el('section', null,
+      el('h2', { text: 'Já espreitaste, ' + firstName(p.n) + '.' }),
+      el('p', { text: 'Neste dispositivo já foi visto o amigo secreto de ' + p.n + '. É um resultado por pessoa, sem batota.' }),
+      el('div', { 'class': 'actions' },
+        el('button', { type: 'button', 'class': 'go', text: 'Mostrar outra vez o meu', click: function () { reveal(p); } }))
+    ), focus);
+  }
+
+  var seen = find(readLock() || '');
+  if (seen) locked(seen, false); else pick(false);
+})();
+</script>
+</body>
+</html>
